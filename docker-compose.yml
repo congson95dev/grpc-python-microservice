@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  grpc:
+    build: ./grpc-service
+    ports:
+      - "8080:50051" # port 50051 is default port of grpc
+    volumes:
+      - ./grpc-service:/app
+  bff:
+    build: ./bff-service
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./bff-service:/app
+    depends_on:
+      - grpc
+    restart: always
