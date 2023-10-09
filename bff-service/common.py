@@ -73,7 +73,10 @@ class Common:
         format rRPC to JSON
         """
         if type(response) is not dict:
-            response_json = json_format.MessageToJson(response)
+            # preserving_proto_field_name=True
+            # => change type of converter from camelCase to snake_case
+            response_json = json_format.MessageToJson(
+                response, preserving_proto_field_name=True)
             response_data = json.loads(response_json)
             return response_data
 
